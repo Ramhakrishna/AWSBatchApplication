@@ -1,0 +1,4 @@
+FROM mdernst/cf-ubuntu-jdk23
+WORKDIR /app
+COPY AWSBatchApplication-0.1.jar AWSBatchApplication.jar
+CMD ["java", "-jar", "AWSBatchApplication.jar"]

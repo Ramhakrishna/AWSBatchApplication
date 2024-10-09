@@ -4,6 +4,8 @@ import java.io.File;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -36,8 +38,12 @@ import software.amazon.awssdk.services.s3.S3Client;
 @EnableBatchProcessing
 public class AwsBatchApplication1Application {
 
+	private static final Logger log = LoggerFactory.getLogger(AwsBatchApplication1Application.class);
+	
 	public static void main(String[] args) {
+		log.debug("*** JOB is started");
 		SpringApplication.run(AwsBatchApplication1Application.class, args);
+		log.debug("*** JOB is completed..");
 	}
 
 	@Autowired
@@ -71,6 +77,7 @@ public class AwsBatchApplication1Application {
 
 	@Bean
 	public FlatFileItemWriter<Employee> writer() {
+		log.debug("***  FlatFileItemWriter: Writer()...");
 		return new FlatFileItemWriterBuilder<Employee>().name("employeeWriter")
 				.resource(new FileSystemResource("employees.csv")).delimited().delimiter(",")
 				.names(new String[]{"id", "name", "department"}).build();
@@ -89,6 +96,7 @@ public class AwsBatchApplication1Application {
 	@Bean
 	public Tasklet uploadToS3Tasklet() {
 		// TODO Auto-generated method stub
+		log.debug("*** uploadToS3Tasklet: Uploading the file ..");
 		return (contribution, chunkContext) -> {
 			File file = new File("employees.csv");
 			s3service.uploadFileToS3(bucketName, "employees.csv", file);

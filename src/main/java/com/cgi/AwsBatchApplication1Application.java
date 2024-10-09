@@ -34,7 +34,6 @@ import software.amazon.awssdk.services.s3.S3Client;
 
 @SpringBootApplication(scanBasePackages = "com.cgi")
 @EnableBatchProcessing
-@Configuration
 public class AwsBatchApplication1Application {
 
 	public static void main(String[] args) {

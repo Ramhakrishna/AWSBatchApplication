@@ -68,8 +68,8 @@ public class AwsBatchApplication1Application {
 //	@Autowired
 //	public S3service s3service;
 
-	@Value("${aws.s3.bucket}")
-	public String bucketName;
+//	@Value("${aws.s3.bucket}")
+//	public String bucketName;
 
 //	@Bean
 //	public S3Client s3Client() {
@@ -98,8 +98,8 @@ public class AwsBatchApplication1Application {
 	@Bean
 	public FlatFileItemReader<Employee> s3FileReader() throws IOException {
 		log.info("*** s3FileReader..");
-	    S3Client s3 = S3Client.builder().region(Region.US_EAST_2).build();
-	    String bucketName = "my-spring-bucket";
+	    S3Client s3 = S3Client.builder().region(Region.AP_SOUTH_1).build();
+	    String bucketName = "my-spring-bucket1";
 	    String key = "employees1.csv";
 
 	    // Get the file from S3
@@ -131,8 +131,8 @@ public class AwsBatchApplication1Application {
 	public ItemWriter<Employee> s3FileWriter() {
 		log.info("*** s3FileWriter..");
 	    return employees -> {
-	        S3Client s3 = S3Client.builder().region(Region.US_EAST_2).build();
-	        String targetBucket = "my-spring-bucket-output";
+	        S3Client s3 = S3Client.builder().region(Region.AP_SOUTH_1).build();
+	        String targetBucket = "my-spring-bucket-output1";
 	        String targetKey = "processed-employees_"+ System.currentTimeMillis()+".csv";
 
 	        // Build the file content (CSV format)

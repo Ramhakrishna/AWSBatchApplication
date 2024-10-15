@@ -120,3 +120,16 @@ add column parameter_type varchar(100) not  null;
 
 alter table BATCH_STEP_EXECUTION
 alter  column CREATE_TIME drop not null;
+
+
+
+psql -h spring-batch-rds.c98iu40oivvy.ap-south-1.rds.amazonaws.com -p 5432 -U postgres -d postgres
+
+password - postgres
+
+
+aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 611273985210.dkr.ecr.ap-south-1.amazonaws.com
+
+docker build -f AmsDockerFile -t spring .
+
+docker tag spring:latest 611273985210.dkr.ecr.ap-south-1.amazonaws.com/spring:latest
